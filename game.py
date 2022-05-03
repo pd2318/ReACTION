@@ -10,16 +10,18 @@ import sys
 # Setup the GPIO Pin numbers.
 
 GPIO.setmode(GPIO.BCM)
+BUTTON = 22
+BUZZ = 19
 TOUCH = 4
 REED = 16
-REDLED = 13
 GRELED = 21
-BUZZ = 19
-GPIO.setup(TOUCH, GPIO.IN)
-GPIO.setup(REED, GPIO.IN)
-GPIO.setup(REDLED, GPIO.OUT)
-GPIO.setup(GRELED, GPIO.OUT)
+REDLED = 13
+GPIO.setup(BUTTON, GPIO.IN)
 GPIO.setup(BUZZ, GPIO.OUT)
+GPIO.setup(REED, GPIO.IN)
+GPIO.setup(TOUCH, GPIO.IN)
+GPIO.setup(GRELED, GPIO.OUT)
+GPIO.setup(REDLED, GPIO.OUT)
 
 # Print an introduction message of the game.
 
@@ -37,8 +39,9 @@ def start():
         print("Start New Game with Magnet")
         print()
         while 1:
-            RawValue = GPIO.input(REED)
-            if (RawValue == 0):
+            REEDVAL = GPIO.input(REED)
+            BUTTONV = GPIO.input(BUTTON)
+            if (REEDVAL == 0) or (BUTTONV == 0):
                 print("Magnet Detected, Game Starting")
                 print("------------------------------")
                 print("Touch the Sensor when Buzzer")
